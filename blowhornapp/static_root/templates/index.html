@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+<section class = "booking">
+  <div class = "layer">
+<blowhorn-header>
+<nav class="header-head navbar navbar-inverse">
+  <div class="header-panel container-fluid">
+
+    <div class="header-main navbar-header">
+
+          <span class = "header-toggle-main">
+              <img src = "{% static 'images/blowhorn.png' %}" class = "logo-image"></img>
+          </span>
+
+    </div>
+      <div class = "header-nav">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">API Docs</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">About
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Why we are here</a></li>
+          <li><a href="#">Solutions</a></li>
+          <li><a href="#">People & Values</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Newsroom</a></li>
+            <li><a href="#">FAQs</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Truck Booking</a></li>
+      {% if user.is_authenticated %}
+        <li class="hidden-xs dropdown"  style=""><a id="btn-logout" title="Profile" class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="true">
+              <img id="user-pic" src="{% static 'images/avatar.png' %}" alt="{{user.username}}"><span class="hidden-xs ng-binding">
+               {{user.username}} </span></a>
+
+            <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="btn-logout">
+              <li class="visible-xs" ng-show="b_user_logged_in &amp;&amp; !is_staff_user &amp;&amp; !b_myfleet_required" style="">
+                <a href="mytrips" id="btn-dashboard" title="My Trips" target="_self">My Trips</a>
+              </li>
+              <!-- ngIf: b_user_logged_in --><li role="presentation" ng-if="b_user_logged_in" class="ng-scope" style="">
+                <a class="pointer" id="btn-profile" role="menuitem" ng-click="showProfile()" tabindex="-1">View Profile</a>
+              </li><!-- end ngIf: b_user_logged_in -->
+              <!-- ngIf: b_user_logged_in && !is_staff_user --><li role="presentation" ng-if="b_user_logged_in &amp;&amp; !is_staff_user" class="ng-scope">
+                <a class="pointer" id="btn-bulkpay" href="/myaccount" target="_self">
+                  <div>My Account</div>
+                  <div class="due-amount ng-binding">Balance: <i class="fa fa-inr"></i>0</div>
+                </a>
+              </li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'user_logout' %}" target="_self"> Logout</a></li>
+            </ul>
+        </li>
+      {% else %}
+      <li><a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Login</a></li>
+      {% endif %}
+
+      <li><a class="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Sign
+              Up</a></li>
+
+    </ul>
+      </div>
+  </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header login-modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button>
+        <!-- <h4 class="modal-title">Login</h4>-->
+        <i class="modal-login-header-logo"></i>
+        </div>
+        <div class="modal-body text-center">
+          <h5 >Have a Blowhorn account?</h5>
+          <form method = "post" action = "{% url 'user_login' %}" id="login-form" class="row" name="loginForm"   style="">
+             {% csrf_token %}
+          <div class="col-xs-12">
+            <input id="email-id" type="text" class="form-control modal-form-fixer ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" placeholder="Email ID" name="email-id" required="" style="">
+          </div>
+          <div class="col-xs-12">
+            <input id="password" type="password" class="form-control modal-form-fixer ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" placeholder="Password" name="password"  required="" style="">
+
+          </div>
+          <div class="danger col-xs-12">
+            <p id="login-message" style="display: none;"></p>
+          </div>
+          <div class="col-xs-12">
+            <input id="input-login" type="submit" class="btn-blue" value="login" title="login"></input>
+          </div>
+
+        </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header login-modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+        </button>
+        <!-- <h4 class="modal-title">Login</h4>-->
+        <i class="modal-login-header-logo"></i>
+        </div>
+        <div class="modal-body text-center">
+          <h5 >Sign up for a Blowhorn account</h5>
+          <form method = "post" action = "{% url 'user_signup' %}" id="signup-form" class="row" name="loginForm"   style="">
+             {% csrf_token %}
+          <div class="col-xs-12">
+            <input id="name" type="text" class="form-control modal-form-fixer ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" placeholder="Email ID" name="name" required="" style="">
+          </div>
+          <div class="col-xs-12">
+            <input id="password1" type="password" class="form-control modal-form-fixer ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" placeholder="Password" name="password1"  required="" style="">
+
+          </div>
+          <div class="danger col-xs-12">
+            <p id="signup-message" style="display: none;"></p>
+          </div>
+          <div class="col-xs-12">
+            <input id="input-signup" type="submit" class="btn-blue" value="signup" title="signup"></input>
+          </div>
+
+        </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
+    </blowhorn-header>
+    <div class = "main-content container">
+      <div class = "ondemand-enterprise">
+        <div class = "tab-bar">
+          <div class = "tab-btn ondemand-tab-bar tab-bar-active" onclick="openTab('ondemand-tab')">
+on-demand booking
+          </div>
+          <div class = "tab-btn enterprise-tab-bar" onclick="openTab('enterprise-tab')">
+                For Enterprises
+
+          </div>
+        </div>
+      </div>
+      <div class="tab-content"  style="">
+              <div class="ondemand-tab">
+                <div class="banner-title ng-binding">Linking the world.</div>
+                <div class="banner-title ng-binding">One city at a time!</div>
+                <div class="banner-sub-title">
+                  <span class="before-flip">Disrupting logistics in </span>
+                  <span class="flip-right ng-binding reset" id="cityName">Mumbai</span><span></span>
+                </div>
+                <div class="pickup-dropoff-wrapper">
+                  <form name="booking" novalidate="" class="pickup-dropoff">
+                    <div class="row row-eq-height">
+                      <div class="col-sm-12 col-md-4">
+                        <div class="dropdown-toggle select-city inputs" type="button" data-toggle="dropdown">
+                          <div class="city">
+                            <img class="img-responsive" alt="" src="/static/website/images/homepage/Map_marker@2x.png">
+                            <span class="ng-binding">Select City
+                            </span>
+                            <span class="caret"></span>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <div class="inputs">
+                          <div class="pickup">
+                            <img class="img-responsive"  alt="" src="/static/website/images/homepage/Pickup_oval@2x.png">
+                            <!-- ngIf: instant_init --><input id="instant-from" name="from" type="text" placeholder="Pick up area/address " class="form-control address-input pac-target-input"  autocomplete="off"><!-- end ngIf: instant_init -->
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="col-sm-12 col-md-4">
+                        <div class="inputs">
+                          <div class="dropoff">
+                            <img class="img-responsive" alt="" src="/static/website/images/homepage/Dropoff_oval@2x.png">
+                            <!-- ngIf: instant_init --><input id="instant-to" name="to" type="text" placeholder="Drop off area/address" class="form-control address-input  pac-target-input"  required=""><!-- end ngIf: instant_init -->
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row row-eq-height">
+                      <div class="book-btn-wrapper col-sm-12">
+                        <button id="book" name="book" title="book" class="book">
+                          Book My Truck
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+      </div>
+      <div class="tab-content" style="">
+              <div class="enterprise-tab container" style="display: none">
+                <div class="row">
+                  <div class="enterprise-left col-sm-7 col-md-8 col-lg-8">
+                    <div class="banner-title">Intra<span style="padding:0px 3px 0 6px">-</span>city delivery of</div>
+                    <div class="banner-title">YOUR goods, OUR way!</div>
+                    <div class="banner-sub-title"><span class="flip-left ng-binding spin" id="weDoItAll" style="padding-right: 5px;">Fixed.</span>We
+                      do it
+                      all.</div>
+                  </div>
+                  <div class="enterprise-right col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <form class="enterprise-form ng-pristine ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength ng-valid-email" name="enterpriseForm" ng-submit="contact_us_send(contact_us, 'enterprise_send')">
+                      <div class="inputs-ent top-input">
+                        <div class="name">
+                          <img class="img-responsive" alt="" ng-src="/static/website/images/homepage/user@2x.png" src="/static/website/images/homepage/user@2x.png">
+                          <input type="text" placeholder="Enter Name" ng-model="contact_us.name" name="contatcName" required="" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+                        </div>
+                      </div>
+                      <div class="inputs-ent">
+                        <div class="contact-no">
+                          <img class="img-responsive" src="/static/website/images/homepage/phone-receiver@2x.png" alt="">
+                          <input type="text" placeholder="Enter Phone No." ng-model="contact_us.phone" name="contactNumber" required="" minlength="10" maxlength="10" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength">
+                        </div>
+                      </div>
+                      <div class="inputs-ent">
+                        <div class="email-id">
+                          <img class="img-responsive" src="/static/website/images/homepage/black-back-closed-envelope-shape@2x.png" alt="">
+                          <input type="email" placeholder="Enter Email ID" ng-model="contact_us.email" name="contactEmail" required="" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-email">
+                        </div>
+                      </div>
+                      <div class="call-back hide-success" ng-class="enterprise_send ? 'show-success' : 'hide-success'">
+                        <button class="call-back-front" type="submit" ng-disabled="enterpriseForm.$invalid" disabled="disabled">Submit
+                          and
+                          request callback</button>
+                        <div class="call-back-back">
+
+                        </div>
+                      </div>
+                    </form>
+                    <div class="why-wait">
+                      Why wait? Plethora of features await you!
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+{% include "our_offerings.html" %}
+{% include "moving-help.html" %}
+<blowhorn-footer>
+    <footer>
+    <div class="container" id="contactus">
+    <div class="row">
+      <div class="col-xs-12 col-sm-2 col-md-2">
+        <ul class="list-unstyled footer-nav">
+          <li>
+            <a href="/about" title="About Us">About Blowhorn</a>
+          </li>
+          <!--<li><a href="#" title="Why we are here">Why we are here</a></li>-->
+          <li>
+            <a href="/solutions" title="Solutions">Solutions</a>
+          </li>
+          <li>
+            <a href="/team" title="People &amp; Values">People &amp; Values</a>
+          </li>
+          <li>
+            <a href="/careers" title="Careers">Careers</a>
+          </li>
+          <li>
+            <a href="/faq" title="Frequently Asked Questions">FAQs</a>
+          </li>
+          <li>
+            <a href="/newsroom" title="Newsroom">Newsroom</a>
+          </li>
+          <li>
+            <a href="/blog" target="_blank" title="Blog">Blog</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <ul class="list-unstyled footer-contact-list">
+          <!-- ngRepeat: city in city_list --><li ng-repeat="city in city_list" class="ng-scope" style="">
+            <div class="city-contact">
+              <div style="margin-right: auto">
+                <a href="/city/Bengaluru" class="pointer ng-binding" ng-class="{active:isCitySelected(city)}" ng-click="selectCity(city, true)">Bengaluru</a>
+              </div>
+              <div>
+                <a href="tel:+91 8045683500" class="ng-binding">+91 8045683500</a>
+              </div>
+            </div>
+          </li><!-- end ngRepeat: city in city_list --><li ng-repeat="city in city_list" class="ng-scope">
+            <div class="city-contact">
+              <div style="margin-right: auto">
+                <a href="/city/Chennai" class="pointer ng-binding" ng-class="{active:isCitySelected(city)}" ng-click="selectCity(city, true)">Chennai</a>
+              </div>
+              <div>
+                <a href="tel:+91 4448134000" class="ng-binding">+91 4448134000</a>
+              </div>
+            </div>
+          </li><!-- end ngRepeat: city in city_list --><li ng-repeat="city in city_list" class="ng-scope">
+            <div class="city-contact">
+              <div style="margin-right: auto">
+                <a href="/city/Delhi-NCR" class="pointer ng-binding" ng-class="{active:isCitySelected(city)}" ng-click="selectCity(city, true)">Delhi NCR</a>
+              </div>
+              <div>
+                <a href="tel:+91 1140849988" class="ng-binding">+91 1140849988</a>
+              </div>
+            </div>
+          </li><!-- end ngRepeat: city in city_list --><li ng-repeat="city in city_list" class="ng-scope">
+            <div class="city-contact">
+              <div style="margin-right: auto">
+                <a href="/city/Hyderabad" class="pointer ng-binding" ng-class="{active:isCitySelected(city)}" ng-click="selectCity(city, true)">Hyderabad</a>
+              </div>
+              <div>
+                <a href="tel:+91 4045208000" class="ng-binding">+91 4045208000</a>
+              </div>
+            </div>
+          </li><!-- end ngRepeat: city in city_list --><li ng-repeat="city in city_list" class="ng-scope">
+            <div class="city-contact">
+              <div style="margin-right: auto">
+                <a href="/city/Mumbai" class="pointer ng-binding" ng-class="{active:isCitySelected(city)}" ng-click="selectCity(city, true)">Mumbai</a>
+              </div>
+              <div>
+                <a href="tel:+91 2248931300" class="ng-binding">+91 2248931300</a>
+              </div>
+            </div>
+          </li><!-- end ngRepeat: city in city_list -->
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <strong>Contact Us</strong>
+            <hr>
+          </div>
+        </div>
+        <div class="footer-contact-us">
+          <div style="margin-right: auto;">
+            <ul class="list-unstyled">
+              <li> Send us an email </li>
+              <li>
+                <a href="mailto:shoutout@blowhorn.com">
+                  <img src="{% static 'images/EMail.png' %}" alt="Send us an email" style="margin-left: -4px">
+                  shoutout@blowhorn.com</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2  pull-right">
+        <strong>Download apps</strong>
+        <hr>
+        <div class="app-download">
+          <a href="https://itunes.apple.com/in/app/blowhorn-mini-trucks-on-hire/id1251408316?mt=8" target="_self">
+            <img src="{% static 'images/applestore-badge.png' %}" style="width:100px; margin-right:5px; margin-bottom:5px;" alt="">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=net.blowhorn.app&amp;hl=en&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_self">
+            <img src="{% static 'images/google-play-badge.png' %}" alt="" style="height:30px; margin-bottom:5px;">
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-12 copyrightdiv">
+        <hr>
+        <span class="copyright">Copyright 2020 © Blowhorn.
+          <br class="visible-xs"> All rights reserved.
+        </span>
+        <span class="pull-right"><a href="/termsofservice" target="_self" title="Terms of Use | Privacy Policy">Terms
+            of Use | Privacy Policy</a></span>
+      </div>
+    </div>
+  </div>
+        <script src="{% static 'js/popper.min.js'%}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript">
+
+
+
+function openTab(tabName) {
+console.log(tabName)
+
+
+  document.getElementsByClassName(tabName)[0].style.display = "block";
+  if(tabName == "enterprise-tab"){
+   document.getElementsByClassName("ondemand-tab")[0].style.display = "none";
+   $(".ondemand-tab-bar").removeClass('tab-bar-active')
+   $(".enterprise-tab-bar").addClass('tab-bar-active')
+  }
+  if(tabName == "ondemand-tab"){
+   document.getElementsByClassName("enterprise-tab")[0].style.display = "none";
+   $(".enterprise-tab-bar").removeClass('tab-bar-active')
+   $(".ondemand-tab-bar").addClass('tab-bar-active')
+
+  }
+
+
+}
+    </script>
+</footer>
+
+</blowhorn-footer>
+
+

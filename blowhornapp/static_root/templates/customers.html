@@ -1,0 +1,83 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+<section class = "customers">
+
+    <div class = "customers-main-content container">
+        <div class = "customer-div">
+            <div class = "title">
+                <div class = "header">
+                    Customers who trust us a truck load
+                </div>
+            </div>
+            <div class = "horizontal-split">
+                <div class = "splitter"></div>
+            </div>
+            <div class = "customer-images">
+                <div class="customer-row">
+                <div class="customer-image">
+                  <img src="{% static 'images/reliancedig@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/zero@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/rivigo@2x.png' %}">
+                </div>
+                <div class="customer-image visible-md hidden-sm visible-lg visible-xs">
+                  <img src = "{% static 'images/xiaomi@2x.png' %}">
+                </div>
+                <div class="customer-image hidden-xs hidden-sm visible-lg">
+                  <img src = "{% static 'images/quikr@2x.png' %}" >
+                </div>
+              </div>
+                <div class="customer-row">
+                <div class="customer-image">
+                  <img src = "{% static 'images/rentickle@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/ninja@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/gati@2x.png' %}" >
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/furlenko@2x.png' %}">
+                </div>
+              </div>
+                <div class="customer-row">
+                <div class="customer-image">
+                  <img src = "{% static 'images/fedex@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/bisleri@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/amazon@2x.png' %}">
+                </div>
+                <div class="customer-image">
+                  <img src = "{% static 'images/biocon@2x.png' %}">
+                </div>
+                <div class="customer-image visible-lg hidden-sm hidden-xs">
+                  <img src = "{% static 'images/flip.png' %}">
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>

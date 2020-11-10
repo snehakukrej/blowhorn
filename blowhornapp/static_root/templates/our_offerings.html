@@ -1,0 +1,78 @@
+
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+
+<section class = "what-we-offer">
+
+    <div class = "what-we-offer-main container">
+        <div class = "title">
+            <div class = "header"> Our Offerings</div>
+        </div>
+        <div class = "horizontal-split">
+            <div class = "splitter"></div>
+        </div>
+
+        <div class = "card-panel">
+            <div class="offer-card">
+            <span class="card-title">Seamless payments and GST-ready invoices</span>
+            <div class="card-main">
+                <img class="card-image img-responsive"  src="{% static 'images/payment-gateway.jpg' %}">
+                <div class="points-panel">
+                    <ul>
+                        <li>Cash/Paytm</li>
+                        <li>Debit or credit card</li>
+                        <li>Net banking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <div class="visible-md visible-lg visible-xl" style="padding:10px"></div>
+            <div class="offer-card">
+            <span class="card-title">Multi pick-up and drop-off points</span>
+            <div class="card-main">
+                <img class="card-image img-responsive"   src="{% static 'images/pickup-dropoff.jpg' %}">
+                <div class="points-panel">
+                    <ul>
+                        <li>Load and unload at different places on your way</li>
+                        <li>Hassle free route options</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <div class="visible-md visible-lg visible-xl" style="padding:10px"></div>
+
+            <div class="offer-card">
+            <span class="card-title">End-to-end visibility</span>
+            <div class="card-main">
+                <img class="card-image img-responsive" src="{% static 'images/tracking.jpg' %}" >
+                <div class="points-panel">
+                    <ul>
+                        <li>Track your vehicle on the app</li>
+                        <li>Get notified for every moment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+
+    </div>
+
+</section>
